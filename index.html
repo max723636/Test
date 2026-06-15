@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zugriff Verweigert</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:black;
+    color:#ff0000;
+    font-family: "Courier New", monospace;
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+h1{
+    font-size:4rem;
+    text-transform:uppercase;
+    animation: glitch 0.2s infinite;
+    text-shadow:
+        3px 0 red,
+        -3px 0 darkred;
+}
+
+p{
+    margin-top:20px;
+    font-size:1.2rem;
+    color:white;
+    opacity:0.8;
+}
+
+.scanline{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    background:
+        repeating-linear-gradient(
+            transparent 0px,
+            rgba(255,255,255,0.03) 2px,
+            transparent 4px
+        );
+    animation: scan 6s linear infinite;
+}
+
+.matrix{
+    position:fixed;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:-1;
+}
+
+.matrix span{
+    position:absolute;
+    color:#00ff00;
+    font-size:20px;
+    animation: fall linear infinite;
+}
+
+@keyframes glitch{
+    0%{transform:translate(0);}
+    25%{transform:translate(-3px,2px);}
+    50%{transform:translate(3px,-2px);}
+    75%{transform:translate(-2px,-1px);}
+    100%{transform:translate(0);}
+}
+
+@keyframes scan{
+    from{transform:translateY(-100%);}
+    to{transform:translateY(100%);}
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-100vh);
+    }
+    to{
+        transform:translateY(100vh);
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="matrix" id="matrix"></div>
+<div class="scanline"></div>
+
+<h1>DU WURDEST GEHACKT</h1>
+<p>Dein System wurde kompromittiert...</p>
+
+<script>
+const matrix = document.getElementById("matrix");
+
+for(let i = 0; i < 80; i++){
+    const char = document.createElement("span");
+    char.textContent = "01"[Math.floor(Math.random()*2)];
+
+    char.style.left = Math.random()*100 + "vw";
+    char.style.animationDuration = (Math.random()*5+3) + "s";
+    char.style.animationDelay = Math.random()*5 + "s";
+
+    matrix.appendChild(char);
+}
+</script>
+
+</body>
+</html>
